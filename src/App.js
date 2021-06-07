@@ -7,7 +7,9 @@ function App() {
     handleSubmit,
     getValues,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    mode: "onChange",
+  });
 
   const onSubmit = (data) => {
     console.log(data);
@@ -42,11 +44,11 @@ function App() {
                     })}
                     name="email"
                     type="email"
-                    autoComplete="email"
+                    // autoComplete="email"
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   />
                   <small className="mt-1 text-red-700">
-                    {errors.email && <span>Please Enter Valid email</span>}
+                    {errors.email && <div>{errors.email.message}</div>}
                   </small>
                 </div>
               </div>
