@@ -5,6 +5,7 @@ function App() {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm();
 
@@ -75,11 +76,35 @@ function App() {
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   />
                   <small className="mt-1 text-red-700">
-                    {errors.password && (
-                      <span>
-                        Password must be contain UpperCase, LowerCase,
-                        Number/special Charecter and min 8 charecters
-                      </span>
+                    {errors.password && <div>{errors.password.message}</div>}
+                  </small>
+                </div>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="confirm password"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Confirm Password
+                </label>
+                <div className="mt-1">
+                  <input
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    type="password"
+                    autoComplete="current-password"
+                    {...register("confirmPassword", {
+                      required: true,
+                      validate: (value) =>
+                        value === getValues("password") ||
+                        "password doesnt match",
+                    })}
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  />
+                  <small className="mt-1 text-red-700">
+                    {errors.confirmPassword && (
+                      <div>{errors.confirmPassword.message}</div>
                     )}
                   </small>
                 </div>
